@@ -7,27 +7,29 @@ import NewPost from './NewPost'
 import PostPage from './PostPage'
 import About from './About'
 import Missing from './Missing'
-import { Route, Routes, useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, useHistory } from 'react-router-dom'
 
 function App() {
   return (
     <div className='App'>
-      <Header />
-      <Nav />
-      <Routes>
-        <Route path='/' element={<Home />} />
+      <Router>
+        <Header />
+        <Nav />
 
-        <Route path='/post' element={<NewPost />} />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route exact path='/post' element={<NewPost />} />
+          <Route exact path='/post/:id' element={<PostPage />} />
 
-        <Route path='/post/:id' element={<PostPage />} />
+          <Route path='/about' element={<About />} />
+          <Route path='*' element={<Missing />} />
+        </Routes>
 
-        <Route path='/about' Component={About} />
-        <Route path='*' Component={Missing} />
-
-      </Routes>
-      <Footer />
+        <Footer />
+      </Router>
     </div>
   )
 }
+
 
 export default App
