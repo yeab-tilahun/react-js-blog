@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "My First Post",
+      "datetime": "July 01, 2023 11:17:36",
+      "body": "lorem ipsum dolor sit amet consectetur adipisicing elit"
+    },
+    {
+      "id": 2,
+      "title": "My Second Post",
+      "datetime": "July 01, 2023 11:17:36",
+      "body": "lorem ipsum dolor sit amet consectetur adipisicing elit"
+    },
+    {
+      "id": 3,
+      "title": "My Thrid Post",
+      "datetime": "July 01, 2023 11:17:36",
+      "body": "lorem ipsum dolor sit amet consectetur adipisicing elit"
+    },
+    {
+      "id": 4,
+      "title": "My Forth Post",
+      "body": "lorem ipsum dolor sit amet consectetur adipisicing clit"
+    },
+    {
+      "id": 5,
+      "title": "Fabrizio",
+      "body": "Here we goooooo"
+    }
+  ]
+}
