@@ -1,18 +1,38 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import posts from './api/posts'
-function EditPost({
-    posts, handleEdit, editBody, setEditBody, editTitle, setEditTitle
-}) {
-    const { id } = useParams()
-    const post = posts.find(post => (post.id).toString() === id)
+import { useState, useEffect, useContext } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import api from './api/posts';
+import { format } from 'date-fns';
+import DataContext from './context/DataContext';
+
+const EditPost = () => {
+    const [editTitle, setEditTitle] = useState('');
+    const [editBody, setEditBody] = useState('');
+    const { posts, setPosts } = useContext(DataContext);
+    const history = useNavigate();
+    const { id } = useParams();
+    const post = posts.find(post => (post.id).toString() === id);
+
     useEffect(() => {
         if (post) {
-            setEditTitle(post.title)
-            setEditBody(post.body)
+            setEditTitle(post.title);
+            setEditBody(post.body);
         }
     }, [post, setEditTitle, setEditBody])
+
+
+    const handleEdit = async (id) => {
+        const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+        const updatedPost = { id, title: editTitle, datetime, body: editBody };
+        try {
+            const response = await api.put(`/posts/${id}`, updatedPost);
+            setPosts(posts.map(post => post.id === id ? { ...response.data } : post));
+            setEditTitle('');
+            setEditBody('');
+            history("/");
+        } catch (err) {
+            console.log(`Error: ${err.message}`);
+        }
+    }
 
     return (
         <main className="NewPost">
@@ -44,7 +64,7 @@ function EditPost({
                     <h2>Post Not Found</h2>
                     <p>Well, that's disappointing.</p>
                     <p>
-                        <Link to={'/'}>Visit Our Homepage</Link>
+                        <Link to='/'>Visit Our Homepage</Link>
                     </p>
                 </>
             }
